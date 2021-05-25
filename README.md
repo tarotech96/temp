@@ -1,8 +1,8 @@
 # Mastering state management in react with typescript
 
-## Create new project 
+   ### Create new project 
   
-   ### npx create-react-app name-of-app --template typescript
+      - npx create-react-app name-of-app --template typescript
 
       - create UI with styled components
 
