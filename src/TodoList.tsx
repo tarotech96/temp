@@ -11,10 +11,6 @@ const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }): ReactElement => {
       <ul>
         {todos.map((todo: Todo, index: number) => (
           <li key={index}>
-            <i
-              className={`fas fa-check-circle ${todo.done && "active"}`}
-              onClick={() => dispatch(toggleTodo(todo.id))}
-            ></i>
             <input
               type="text"
               className={todo.done ? "active" : ""}
@@ -23,6 +19,10 @@ const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }): ReactElement => {
                 dispatch(updateTodo(todo.id, event.target.value))
               }
             />
+            <i
+              className={`fas fa-check-circle ${todo.done && "active"}`}
+              onClick={() => dispatch(toggleTodo(todo.id))}
+            ></i>
             <i
               className="fas fa-trash"
               onClick={() => dispatch(deleteTodo(todo.id))}
@@ -37,13 +37,10 @@ const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }): ReactElement => {
 };
 
 const List = styled.div`
-  width: 100%;
-
   ul {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 3rem;
 
     li {
       list-style: none;
@@ -69,10 +66,11 @@ const List = styled.div`
       i {
         position: relative;
         top: 0;
-        right: 2rem;
+        right: 5rem;
         font-size: 1.3rem;
         cursor: pointer;
         color: rgba(0, 0, 0, 0.54);
+        margin: 0 10px;
       }
     }
   }

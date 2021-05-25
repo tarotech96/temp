@@ -7,4 +7,5 @@ export interface Todo {
 export interface Store {
   todos: Todo[];
   newTodo: string;
+  mode: string;
 }

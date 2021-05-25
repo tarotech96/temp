@@ -5,7 +5,8 @@ import {
   UPDATE_TODO,
   TOGGLE_TODO,
   SET_NEWTODO,
-  ADD_TODO
+  ADD_TODO,
+  SET_MODE
 } from './../actions/actions';
 import { Store, Todo } from './../types/types';
 
@@ -44,7 +45,7 @@ const toggleTodo = (todos: Todo[], id: number): Todo[] =>
   )
   )
 
-function reducers(state: Store = { todos: [], newTodo: '' }, action: ActionTypes) {
+function reducers(state: Store = { todos: [], newTodo: '', mode: 'whitesmoke' }, action: ActionTypes) {
   switch (action.type) {
     case ADD_TODO:
       return {
@@ -76,6 +77,11 @@ function reducers(state: Store = { todos: [], newTodo: '' }, action: ActionTypes
       return {
         ...state,
         newTodo: action.payload
+      }
+    case SET_MODE:
+      return {
+        ...state,
+        mode: action.payload
       }
     default:
       return state;

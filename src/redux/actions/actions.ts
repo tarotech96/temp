@@ -6,6 +6,7 @@ export const UPDATE_TODO = "UPDATE_TODO";
 export const TOGGLE_TODO = "TOGGLE_TODO";
 export const SET_NEWTODO = "SET_NEWTODO";
 export const SET_TODOS = "SET_TODOS";
+export const SET_MODE = "SET_MODE";
 
 export type ActionTypes =
   | { type: typeof SET_TODOS, payload: Todo[] }
@@ -14,6 +15,7 @@ export type ActionTypes =
   | { type: typeof UPDATE_TODO, payload: { id: number, text: string } }
   | { type: typeof TOGGLE_TODO, payload: number }
   | { type: typeof SET_NEWTODO, payload: string }
+  | { type: typeof SET_MODE, payload: string }
 
 // Add todo
 export const addTodo = (text: string): ActionTypes => ({ type: ADD_TODO, payload: text })
@@ -32,3 +34,6 @@ export const toggleTodo = (id: number): ActionTypes => ({ type: TOGGLE_TODO, pay
 
 // Set new todo
 export const setNewTodo = (text: string): ActionTypes => ({ type: SET_NEWTODO, payload: text })
+
+// Set mode 
+export const setMode = (bg: string): ActionTypes => ({ type: SET_MODE, payload: bg })

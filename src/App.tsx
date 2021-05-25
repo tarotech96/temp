@@ -4,15 +4,44 @@ import styled from "styled-components";
 import TodoList from "./TodoList";
 import { Store } from "./redux/types/types";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo } from "./redux/actions/actions";
+import { addTodo, setMode } from "./redux/actions/actions";
+
+const DARK_MODE = "#212121";
+const LIGHT_MODE = "whitesmoke";
 
 const App: React.FC = (): ReactElement => {
   const dispatch = useDispatch();
-  const todos = useSelector((state: Store) => state.todos);
+  const { todos, mode } = useSelector((state: Store) => state);
   const [text, setText] = useState<string>("");
   return (
-    <Container>
-      <h1>Todo List</h1>
+    <Container style={{ backgroundColor: `${mode}` }}>
+      <h1
+        style={{
+          color: `${mode === DARK_MODE ? "#fff" : "#000"}`,
+        }}
+      >
+        Todo List
+      </h1>
+      <Mode>
+        <button onClick={() => dispatch(setMode(DARK_MODE))}>
+          <i
+            className="fas fa-moon"
+            style={{
+              color: `${mode === DARK_MODE ? "#fff" : "rgba(0, 0, 0, 0.54)"}`,
+            }}
+          ></i>{" "}
+          Dark mode
+        </button>
+        <button onClick={() => dispatch(setMode(LIGHT_MODE))}>
+          <i
+            className="far fa-moon"
+            style={{
+              color: `${mode === DARK_MODE ? "#fff" : "rgba(0, 0, 0, 0.54)"}`,
+            }}
+          ></i>{" "}
+          Light mode
+        </button>
+      </Mode>
       <AddList>
         <input
           type="text"
@@ -31,16 +60,34 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  background-color: whitesmoke;
-  width: 800px;
   margin: auto;
   height: 100vh;
 
   h1 {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bolder;
     font-family: "Montserrat";
+  }
+`;
+
+const Mode = styled.div`
+  margin: 1rem 0;
+
+  button {
+    width: 300px;
+    height: 40px;
+    margin: 0 1rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-family: "Montserrat";
+    border-width: 1px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.54);
+    color: #fff;
+
+    :hover {
+      opacity: 0.7;
+    }
   }
 `;
 
@@ -57,6 +104,8 @@ const AddList = styled.div`
     outline: none;
     font-size: 1.3rem;
     font-family: "Montserrat";
+    border-width: 1px;
+    margin-right: 1rem;
   }
 
   button {
@@ -66,9 +115,10 @@ const AddList = styled.div`
     background-color: #1976d2;
     color: #fff;
     border-radius: 5px;
-    margin: 0 1rem;
+    margin-left: 1rem;
     cursor: pointer;
     font-family: "Montserrat";
+    border-width: 1px;
 
     :hover {
       opacity: 0.8;
