@@ -1,0 +1,4 @@
+
+GET https://pokeapi.co/api/v2/berry/?limit=20&offset=20
+Content-Type: application/json
+

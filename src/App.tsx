@@ -5,6 +5,7 @@ import TodoList from "./TodoList";
 import { Store } from "./redux/types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, setMode } from "./redux/actions/actions";
+import Pokemon from "./Pokemon";
 
 const DARK_MODE = "#212121";
 const LIGHT_MODE = "whitesmoke";
@@ -13,6 +14,7 @@ const App: React.FC = (): ReactElement => {
   const dispatch = useDispatch();
   const { todos, mode } = useSelector((state: Store) => state);
   const [text, setText] = useState<string>("");
+  const [showPokemon, setShowPokemon] = useState<boolean>(false);
   return (
     <Container style={{ backgroundColor: `${mode}` }}>
       <h1
@@ -49,9 +51,18 @@ const App: React.FC = (): ReactElement => {
           placeholder="Enter text..."
           onChange={(event) => setText(event.target.value)}
         />
-        <button onClick={() => dispatch(addTodo(text))}>Add New</button>
+        <button
+          onClick={() => {
+            setShowPokemon(false);
+            dispatch(addTodo(text));
+          }}
+        >
+          Add New
+        </button>
+        <button onClick={() => setShowPokemon(true)}>Generate</button>
       </AddList>
-      <TodoList todos={todos} />
+      {!showPokemon && <TodoList todos={todos} />}
+      {showPokemon && <Pokemon />}
     </Container>
   );
 };
@@ -61,7 +72,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin: auto;
-  height: 100vh;
+  height: 100%;
 
   h1 {
     font-size: 2rem;
@@ -111,7 +122,7 @@ const AddList = styled.div`
   button {
     width: 150px;
     height: 40px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     background-color: #1976d2;
     color: #fff;
     border-radius: 5px;

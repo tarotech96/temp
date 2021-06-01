@@ -10,11 +10,15 @@
 
       - handle actions
 
+      - custom hooks
 
-   ### start project
+      - generate pokemon
+
+
+   ### Start project
 
       yarn start
 
-   ### build project
+   ### Build project
 
       yarn build
