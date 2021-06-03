@@ -1,10 +1,11 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { usePokemons } from "./usePokemons";
+import Pagination from "@material-ui/lab/Pagination";
 
 const Pokemon: React.FC = (): ReactElement => {
-  const [keySearch, setKeySearch] = useState<string>("");
-  const { pokemons } = usePokemons(keySearch);
+  const { pokemonsRender, setKeySearch, setPage, page, totalPages } = usePokemons();
+
   return (
     <Container>
       <div className="search-pokemon">
@@ -16,8 +17,13 @@ const Pokemon: React.FC = (): ReactElement => {
           autoComplete="off"
         />
       </div>
+      <Pagination
+        count={totalPages}
+        page={page}
+        onChange={(event, newPage) => setPage(newPage)}
+      />
       <PokemonContainer>
-        {pokemons.map((el, index) => {
+        {pokemonsRender.map((el, index) => {
           return (
             <Card key={index}>
               <img src={el.sprites.back_default} alt={el.name} />
@@ -66,15 +72,16 @@ const Card = styled.div`
   cursor: pointer;
   box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
     0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12);
-  border-radius: 5px;
-  transition: all 2s ease-out;
+  border-radius: 10px;
+  transition: all 3s ease-in-out;
+  background-color: #f9e0dd;
 
   img {
     width: 300px;
     height: 150px;
     object-fit: cover;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 
   span {
@@ -86,7 +93,18 @@ const Card = styled.div`
   }
 
   :hover {
-    transform: scale(1.167);
+    /* transform: scale(1.167); */
+    animation: pokemon 3s infinite;
+  }
+
+  @keyframes pokemon {
+    from {
+      transform: rotateY(0deg);
+    }
+
+    to {
+      transform: rotateY(180deg);
+    }
   }
 `;
 

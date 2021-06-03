@@ -8,7 +8,7 @@ import { addTodo, setMode } from "./redux/actions/actions";
 import Pokemon from "./Pokemon";
 
 const DARK_MODE = "#212121";
-const LIGHT_MODE = "whitesmoke";
+const LIGHT_MODE = "#f9e0dd";
 
 const App: React.FC = (): ReactElement => {
   const dispatch = useDispatch();
